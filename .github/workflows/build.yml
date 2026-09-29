@@ -15,6 +15,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Fix Project Structure
+        run: |
+          mkdir -p app/src/main
+          mv AndroidManifest.xml app/src/main/ || true
+          mv *.kt app/src/main/ || true
+          mv *xml app/src/main/ || true
+          mkdir -p app/src/main/res
+          # Переносим ресурсы если они есть
+          
       - name: Generate Gradle Wrapper
         run: gradle wrapper
 
@@ -28,5 +37,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: app/build/outputs/apk/debug/app-de
-          bug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
